@@ -2,12 +2,18 @@
 
 import { addSchedule } from '@/features/schedule/slice';
 import { useAppSelector } from '@/hooks/reduxHooks';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { useDispatch } from 'react-redux';
 
 export default function Home() {
+  const router = useRouter();
   const dispatch = useDispatch();
   const testValue = useAppSelector((state) => state.schedule.schedules);
+
+  const handleClick = () => {
+    router.push('./create');
+  };
 
   const handleAdd = () => {
     dispatch(
@@ -28,17 +34,12 @@ export default function Home() {
   console.log('test Value :', testValue);
   return (
     <div>
-      스케줄 추가 테스트
-      <button onClick={handleAdd}>일정 추가 버튼</button>
-      <ul>
-        {testValue?.map((schedule) => (
-          <li key={schedule.id}>
-            <strong>
-              {schedule.title} ㅡ {schedule.dateRange.join(', ')}
-            </strong>
-          </li>
-        ))}
-      </ul>
+      <span>We Meet !</span>
+      <span>시간 조율 앱</span>
+      <div>
+        <button onClick={handleClick}>시간 정하기</button>
+        <button>참여 코드 입력</button>
+      </div>
     </div>
   );
 }
